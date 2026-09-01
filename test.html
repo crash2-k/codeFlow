@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFlow Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .test { margin: 20px 0; padding: 10px; background: #252526; border: 1px solid #3e3e42; }
+        .pass { color: #4ec9b0; }
+        .fail { color: #f48771; }
+    </style>
+</head>
+<body>
+    <h1>CodeFlow Test Suite</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        import { SimpleParser } from './src/parser/SimpleParser.js';
+        import { ExecutionEngine } from './src/execution/ExecutionEngine.js';
+
+        const results = document.getElementById('results');
+
+        function test(name, fn) {
+            try {
+                fn();
+                addResult(`✓ ${name}`, true);
+            } catch (e) {
+                addResult(`✗ ${name}: ${e.message}`, false);
+            }
+        }
+
+        function addResult(text, pass) {
+            const div = document.createElement('div');
+            div.className = 'test ' + (pass ? 'pass' : 'fail');
+            div.textContent = text;
+            results.appendChild(div);
+        }
+
+        // Test 1: Parser - Simple variable declaration
+        test('Parser: Variable declaration', () => {
+            const parser = new SimpleParser('let x = 10;');
+            const result = parser.parse();
+            if (result.error) throw new Error(result.error.message);
+            if (!result.ast) throw new Error('No AST generated');
+        });
+
+        // Test 2: Parser - Function declaration
+        test('Parser: Function declaration', () => {
+            const parser = new SimpleParser('function add(a, b) { return a + b; }');
+            const result = parser.parse();
+            if (result.error) throw new Error(result.error.message);
+            if (result.functions.size !== 1) throw new Error('Function not recognized');
+        });
+
+        // Test 3: Execution - Simple arithmetic
+        test('Execution: Simple arithmetic', () => {
+            const code = 'let x = 10; let y = 20; let z = x + y;';
+            const parser = new SimpleParser(code);
+            const parseResult = parser.parse();
+            if (parseResult.error) throw new Error(parseResult.error.message);
+
+            const engine = new ExecutionEngine(parseResult.ast, parseResult.functions);
+            const execResult = engine.execute();
+            if (!execResult.success) throw new Error(execResult.error.message);
+            if (execResult.states.length === 0) throw new Error('No execution states generated');
+        });
+
+        // Test 4: Execution - With output
+        test('Execution: Console output', () => {
+            const code = 'console.log("Hello");';
+            const parser = new SimpleParser(code);
+            const parseResult = parser.parse();
+            if (parseResult.error) throw new Error(parseResult.error.message);
+
+            const engine = new ExecutionEngine(parseResult.ast, parseResult.functions);
+            const execResult = engine.execute();
+            if (!execResult.success) throw new Error(execResult.error.message);
+            if (execResult.output.length === 0) throw new Error('No output captured');
+        });
+
+        // Test 5: Execution - For loop
+        test('Execution: For loop', () => {
+            const code = 'let sum = 0; for (let i = 0; i < 3; i = i + 1) { sum = sum + i; }';
+            const parser = new SimpleParser(code);
+            const parseResult = parser.parse();
+            if (parseResult.error) throw new Error(parseResult.error.message);
+
+            const engine = new ExecutionEngine(parseResult.ast, parseResult.functions);
+            const execResult = engine.execute();
+            if (!execResult.success) throw new Error(execResult.error.message);
+        });
+
+        // Test 6: Execution - Function call
+        test('Execution: Function call', () => {
+            const code = `
+                function greet(name) {
+                    return "Hello";
+                }
+                let msg = greet("World");
+            `;
+            const parser = new SimpleParser(code);
+            const parseResult = parser.parse();
+            if (parseResult.error) throw new Error(parseResult.error.message);
+
+            const engine = new ExecutionEngine(parseResult.ast, parseResult.functions);
+            const execResult = engine.execute();
+            if (!execResult.success) throw new Error(execResult.error.message);
+        });
+
+        addResult('', true);
+        addResult('Test suite completed! ✓', true);
+    </script>
+</body>
+</html>

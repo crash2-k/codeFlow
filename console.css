@@ -1,0 +1,47 @@
+/* Console-specific styles */
+
+.console-output {
+    /* Inherits from main.css */
+}
+
+.console-line {
+    /* Inherits from main.css */
+}
+
+.console-input {
+    padding: 4px 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.console-output-value {
+    display: block;
+    margin-left: 12px;
+    padding: 4px 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border-left: 3px solid var(--accent-primary);
+    margin-top: 2px;
+}
+
+.console-error-details {
+    padding: 8px;
+    background-color: rgba(244, 135, 113, 0.1);
+    border: 1px solid var(--error);
+    border-radius: 3px;
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+.console-stack-trace {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    padding-left: 12px;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+}

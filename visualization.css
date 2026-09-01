@@ -1,0 +1,80 @@
+/* Visualization-specific styles */
+
+.visualization-canvas {
+    /* Inherits from main.css */
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+canvas {
+    border: none;
+    display: block;
+}
+
+.visualization-node {
+    position: absolute;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    cursor: move;
+    user-select: none;
+}
+
+.visualization-node.array {
+    border-color: var(--success);
+    background-color: rgba(78, 201, 176, 0.1);
+}
+
+.visualization-node.object {
+    border-color: var(--info);
+    background-color: rgba(79, 193, 255, 0.1);
+}
+
+.visualization-node.primitive {
+    border-color: var(--warning);
+    background-color: rgba(220, 220, 170, 0.1);
+}
+
+.node-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.node-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.node-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+.node-key {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.node-value {
+    color: var(--text-primary);
+}
+
+.visualization-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.no-visualization {
+    color: var(--text-muted);
+    text-align: center;
+}

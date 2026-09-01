@@ -1,0 +1,51 @@
+/* Debugger-specific styles */
+
+.debugger-content {
+    /* Inherits from main.css */
+}
+
+.call-stack-frame.current {
+    border-left: 3px solid var(--accent-primary);
+    background-color: rgba(0, 122, 204, 0.1);
+}
+
+.variable-item.modified {
+    background-color: rgba(206, 145, 120, 0.2);
+    border-left: 3px solid var(--warning);
+}
+
+.variable-expandable {
+    display: flex;
+    gap: 6px;
+}
+
+.expand-toggle {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+.expand-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+.nested-variables {
+    margin-left: 16px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nested-variable {
+    padding: 4px 6px;
+    background-color: var(--bg-primary);
+    border-radius: 2px;
+    font-size: 11px;
+    color: var(--text-secondary);
+}

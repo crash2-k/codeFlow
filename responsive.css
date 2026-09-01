@@ -1,0 +1,111 @@
+/* Responsive design for tablets and smaller screens */
+
+@media (max-width: 1200px) {
+    .toolbar-right {
+        gap: 8px;
+    }
+
+    .speed-control input[type="range"] {
+        width: 60px;
+    }
+
+    .btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .icon {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .panel {
+        flex: 1;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .panel:last-of-type {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .console-panel {
+        height: auto;
+        flex-basis: 150px;
+    }
+
+    .toolbar-center {
+        flex: none;
+    }
+
+    .toolbar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .toolbar-left,
+    .toolbar-center,
+    .toolbar-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        gap: 8px;
+        height: auto;
+    }
+
+    .editor-wrapper {
+        flex-direction: column;
+    }
+
+    .line-numbers {
+        min-width: auto;
+        width: 40px;
+    }
+
+    .debugger-content {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .console-output {
+        font-size: 11px;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .app-title {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .toolbar,
+    .console-panel,
+    .debugger-panel {
+        display: none;
+    }
+
+    .code-editor {
+        border: 1px solid black;
+    }
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeFlow - JavaScript Execution Visualizer</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/debugger.css">
+    <link rel="stylesheet" href="css/visualization.css">
+    <link rel="stylesheet" href="css/console.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header / Toolbar -->
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <h1 class="app-title">CodeFlow</h1>
+            </div>
+            <div class="toolbar-center">
+                <button id="btn-run" class="btn btn-primary" title="Run (Ctrl+Enter)">
+                    <span class="icon">▶</span> Run
+                </button>
+                <button id="btn-pause" class="btn" title="Pause" disabled>
+                    <span class="icon">⏸</span> Pause
+                </button>
+                <button id="btn-step-forward" class="btn" title="Step Forward (F10)">
+                    <span class="icon">⏭</span> Step
+                </button>
+                <button id="btn-step-backward" class="btn" title="Step Backward (Shift+F10)">
+                    <span class="icon">⏮</span> Back
+                </button>
+                <button id="btn-reset" class="btn" title="Reset (Ctrl+R)">
+                    <span class="icon">↻</span> Reset
+                </button>
+            </div>
+            <div class="toolbar-right">
+                <div class="speed-control">
+                    <label for="speed-slider">Speed:</label>
+                    <input type="range" id="speed-slider" min="0.25" max="4" step="0.25" value="1">
+                    <span id="speed-display">1x</span>
+                </div>
+                <button id="btn-examples" class="btn" title="Load Example">
+                    <span class="icon">📄</span> Examples
+                </button>
+                <button id="btn-theme" class="btn" title="Toggle Theme">
+                    <span class="icon">🌙</span>
+                </button>
+                <button id="btn-settings" class="btn" title="Settings">
+                    <span class="icon">⚙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Code Editor Panel -->
+            <div class="panel editor-panel" id="editor-container">
+                <div class="panel-header">
+                    <h2>Code Editor</h2>
+                </div>
+                <div class="editor-wrapper">
+                    <div class="line-numbers" id="line-numbers"></div>
+                    <textarea id="code-editor" class="code-editor" spellcheck="false"></textarea>
+                </div>
+            </div>
+
+            <!-- Visualization Panel -->
+            <div class="panel visualization-panel" id="visualization-container">
+                <div class="panel-header">
+                    <h2>Execution View</h2>
+                    <div class="visualization-modes">
+                        <button class="mode-btn active" data-mode="execution">Execution</button>
+                        <button class="mode-btn" data-mode="memory">Memory</button>
+                        <button class="mode-btn" data-mode="structures">Structures</button>
+                    </div>
+                </div>
+                <div id="visualization-canvas" class="visualization-canvas"></div>
+            </div>
+
+            <!-- Debugger Panel -->
+            <div class="panel debugger-panel" id="debugger-container">
+                <div class="panel-header">
+                    <h2>Debugger</h2>
+                </div>
+                <div class="debugger-content">
+                    <!-- Call Stack -->
+                    <div class="debugger-section">
+                        <h3 class="section-title">Call Stack</h3>
+                        <div id="call-stack" class="call-stack">
+                            <div class="placeholder">No execution</div>
+                        </div>
+                    </div>
+
+                    <!-- Variables -->
+                    <div class="debugger-section">
+                        <h3 class="section-title">Variables</h3>
+                        <div id="variables-panel" class="variables-panel">
+                            <div class="placeholder">No variables</div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="debugger-section">
+                        <h3 class="section-title">Execution Timeline</h3>
+                        <div id="timeline" class="timeline">
+                            <div class="placeholder">No execution</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Console Panel -->
+        <div class="console-panel" id="console-container">
+            <div class="console-header">
+                <h3>Console</h3>
+                <div class="console-controls">
+                    <button id="btn-clear-console" class="btn-small" title="Clear Console (Ctrl+K)">Clear</button>
+                    <button id="btn-copy-console" class="btn-small" title="Copy Console">Copy</button>
+                </div>
+            </div>
+            <div id="console-output" class="console-output"></div>
+        </div>
+    </div>
+
+    <!-- Examples Modal -->
+    <div id="examples-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Load Example</h2>
+                <button class="btn-close" id="close-examples-modal">&times;</button>
+            </div>
+            <div id="examples-list" class="examples-list">
+                <!-- Examples will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="btn-close" id="close-settings-modal">&times;</button>
+            </div>
+            <div class="settings-content">
+                <!-- Settings will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Notification -->
+    <div id="error-notification" class="notification error hidden"></div>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
